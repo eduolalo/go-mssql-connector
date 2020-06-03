@@ -2,7 +2,7 @@
    En este documento se escribe la función necesaria para establecer una
    conexión con la base de datos MSSQL,
 */
-package go-mssql-connector
+package mssql
 
 import (
 	// Se importa en blanco para el uso como driver
