@@ -1,6 +1,8 @@
 package mssql
 
 import (
+	"strings"
+
 	mssql "github.com/denisenkom/go-mssqldb"
 )
 
@@ -22,4 +24,26 @@ func (nui *NullUniqueIdentifier) Scan(v interface{}) error {
 
 	nui.Valid = true
 	return nui.UniqueIdentifier.Scan(v)
+}
+
+// String regresa el valor del unique identifier
+func (nui NullUniqueIdentifier) String() string {
+
+	if !nui.Valid {
+
+		return ""
+	}
+
+	var str strings.Builder
+	str.Write(nui.UniqueIdentifier[0:4])
+	str.WriteString("-")
+	str.Write(nui.UniqueIdentifier[4:6])
+	str.WriteString("-")
+	str.Write(nui.UniqueIdentifier[6:8])
+	str.WriteString("-")
+	str.Write(nui.UniqueIdentifier[8:10])
+	str.WriteString("-")
+	str.Write(nui.UniqueIdentifier[10:])
+
+	return str.String()
 }
